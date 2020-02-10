@@ -1,0 +1,105 @@
+# Autor zadan:
+Andrzej Görlich
+agoerlich@netmail.if.uj.edu.pl
+http://th.if.uj.edu.pl/~atg/Java
+
+# Tresc zadan:
+Zadanie 1. Complex numbers (liczby zespolone)
+
+W matematyce zbiór nad którym możemy wykonywać operacje dodawania, odejmowania, mnożenia i dzielenia nazywamy ciałem (ang. field). Ciałami są m.in. liczby wymierne, rzeczywiste, zespolone, kwaterniony, …
+Poniższy interfejs reprezentuje tę podstawową strukturę algebraiczną:
+
+public interface Field<T> {
+    // Poniższe metody modyfikują aktualny obiekt i zwracają "this".
+    // Taka konstrukcja pozwala na łańcuchowe łączenie operacji. Np.
+    // a.mul(a).add(b) --> a = a^2 + b
+    T add(T);          // dodawanie
+    T sub(T);          // odejmowanie
+    T mul(T);          // mnożenie
+    T div(T);          // dzielenie
+    String toString(); // zwraca napis reprezentujący liczbę
+}
+
+Napisać klasę Complex do obsługi liczb zespolonych, która implementuje interfejs Field<Complex>. Ponadto, należy dodać statyczne wersje podstawowych operacji (np. static Complex add(Complex, Complex)), metodę statyczną valueOf, konstruktory i inne metody wg następujące schematu:
+
+public class Complex implements Field<Complex>
+{
+private double r, i;
+
+    Complex();
+    Complex(double);
+    Complex(double, double);
+    Complex(Complex);
+    Complex(String);
+
+    public boolean equals(Object obj); // Porównanie wartości
+
+    /* Poniższe metody modyfikują aktualny obiekt i zwracają 'this' */
+
+    Complex add(Complex);   // Dodawanie
+    Complex sub(Complex);   // Odejmowanie
+    Complex mul(Complex);   // Mnożenie
+    Complex div(Complex);   // Dzielenie
+    double abs();           // Moduł
+    double sqrAbs();        // Kwadrat modułu
+    double phase();         // Faza
+    double re();            // Część rzeczywista
+    double im();            // Część urojona
+
+    /* Metody statyczne dla powyższych operacji */
+
+    static Complex add(Complex, Complex); 
+    static Complex sub(Complex, Complex); 
+    static Complex mul(Complex, Complex); 
+    static Complex div(Complex, Complex); 
+    static double abs(Complex);       
+    static double phase(Complex);         
+    static double sqrAbs(Complex);
+    static double re(Complex);
+    static double im(Complex);
+
+    /* Dodatkowe metody */
+    
+    String toString();
+    /* Zwraca String z zapisaną 
+        liczbą zespoloną formacie "-1.23+4.56i" */
+
+    static Complex valueOf(String);
+    /* Zwraca liczbę zespolona o wartości podanej 
+        w argumencie w formacie "-1.23+4.56i" */
+
+    void setRe(double);
+    /* Przypisuje podaną wartość części rzeczywistej */
+
+    void setIm(double);
+    /* Przypisuje podaną wartość części urojonej */
+
+    void setVal(Complex);
+    void setVal(double, double);
+    /* Przypisuje podaną wartość */
+}
+
+Powyższe metody i konstruktory proszę zadeklarować jako publiczne.
+Przydatne klasy: java.lang.Math.
+Metoda div powinna wyrzucać wyjątek podczas próby dzielenia przez zero.
+Użyć adnotacji @Override w odpowiednich miejscach.
+Uwaga: metody niestatyczne dla operacji matematycznych mają zwracać this.
+Zadanie 2. Tester
+
+Napisać klasę TestComplex do testowania klasy Complex. W szczególności sprawdzić poprawność metod toString(), valueOf() oraz operacji add(), div() oraz mul() w wersji statycznej i niestatycznej. Wykorzystać słowo kluczowe assert w obu wersjach (assert warunek; i assert warunek : wyrażenie;). Aby JVM wywoływała asercje należy ustawić opcję -enableassertions lub -ea (dotyczy JVM java, nie kompilatora javac).
+
+Przykład kodu:
+
+...
+void testMul() {
+    Complex a = new Complex("-1.2+3.4i");
+    Complex b = Complex.valueOf("5.6-7.8i");
+    Complex c = Complex.valueOf("19.80+28.40i");
+    a.mul(b);
+    assert a.equals(c) : "Error in instance method mul()";
+}
+
+Zadanie 3. Interfaces (interfejsy)
+
+Zaproponować własny przykład interfejsu funkcyjnego i interfejsu, który zawiera metodę prywatną(private), domyślną (default) oraz statyczną (static). Napisać ich implementacje.
+Ćwiczenie ma za zadanie zademonstrować użyteczność interfejsów, proszę odpowiednio udokumentować rozwiązanie ćwiczenia.

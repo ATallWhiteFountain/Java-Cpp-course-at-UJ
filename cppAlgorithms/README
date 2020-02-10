@@ -1,0 +1,73 @@
+W tym katalogu znajduja sie pliki zrodlowe bedace odpowiedzia na zadania postawione w Zestawie 3.
+Zad.1: distance.cpp
+Zad.2: inversions.cpp
+Zad.3: maxSquare.cpp
+Zad.4: leader.cpp
+       maxLength.cpp
+       sumOfX.cpp
+       maxSegment.cpp
+
+#Autor zadania
+Andrzej Görlich
+agoerlich@netmail.if.uj.edu.pl
+http://th.if.uj.edu.pl/~atg/ASD
+
+#Tresc zadania
+Część I - Metoda dziel i zwyciężaj
+Zadanie 1. Najmniejsza odległość (distance.cxx)
+
+Napisz program genSquare.cxx, który losuje n punktów w kwadracie (0, 1)2 i wypisuje ich współrzędne (x, y). Wykorzystując technikę dziel i zwyciężaj zaimplementuj algorytm o złożoności obliczeniowej O(n ⋅ log n), który znajduje parę najbliższych punktów. Zweryfikuj poprawność programu porównując wynik z algorytmem brute force o złożoności O(n2).
+
+Należy korzystać z własnych implementacji szybkich algorytmów sortowania oraz struktur danych. Użyć szablonów w C++.
+
+    Wskazówka: Najpierw posortuj punkty ze względu na współrzędną x (lub y).
+
+Zadanie 2. Liczba inwersji (inversions.cxx)
+
+Napisz program genRandomPerm.cxx, który generuje losową permutację zbioru {1, 2, …, n} (Knuth shuffle). Wykorzystując technikę dziel i zwyciężaj zaimplementuj algorytm o złożoności obliczeniowej O(n ⋅ log n), który znajduje liczbę inwersji w podanym zbiorze. Można bazować na algorytmie merge sort. Zweryfikuj poprawność programu porównując wynik z prostym algorytmem o złożoności O(n2).
+
+    Wskazówka: Zmodyfikuj algorytm merge sort do zliczania permutacji.
+
+Część II - Programowanie dynamiczne
+Zadanie 3. Największy prostokąt (maxRect.cxx)
+
+Dana jest macierz A o rozmiarze N × M i elementach równych 0 bądź 1 (char A[N][M]). Oblicz maksymalne pole prostokąta składającego się z samych jedynek w tej tablicy. Zaimplementować algorytm o złożoności O(N ⋅ M) oraz algorytm brute-force dla sprawdzenia wyników.
+
+    Wskazówka: Problem warto podzielić na dwie części.
+
+W pierwszej części przechodzimy macierz wiersz po wierszu i zliczamy liczbę jedynek występujących powyżej danego elementu (włącznie z nim).
+
+Druga część polega na znalezieniu prostokąta o największym polu, w oparciu o dane z pierwszej części i z użyciem stosu.
+
+Dane wejściowe: W pierwszej linii znajdują się wartości N i M. W kolejnych N liniach po M elementów znajduje się macierz A.
+
+Dane wyjściowe: Pole największego kwadratu.
+
+Przykładowe dane wejściowe, wynik: 18.
+Zadanie 4.
+
+Napisać krótkie programy, które realizują poniższe zadania. Proszę postarać się znaleźć algorytm o złożoności liniowej (O(N ⋅ M) lub O(n)).
+
+    Szukanie przywódcy ciągu: Przywódcą ciągu jest element, który występuje w ciągu więcej razy niż połowa jego długości. Znaleźć przywódcę w tablicy A[1..n]:
+        przyjąć, że przywódca ciągu istnieje,
+        sprawdzać istnienie przywódcy.
+
+    Szukanie sumy: Mamy dane dwie tablice posortowane rosnąco A, B i liczbę x. Sprawdzić czy istnieją a ∈ A, b ∈ B takie, że x = a + b.
+
+    Szukanie maksymalnej sumy długości rozłącznych odcinków:
+
+    Dana jest tablica A zawierająca n posortowanych rosnąco współrzędnych punktów na osi liczb rzeczywistych. Oblicz maksymalną sumę długości rozłącznych odcinków (tzn. nie stykających sie nawet końcami), które można otrzymać łącząc wybrane sąsiednie punkty.
+
+    Szukanie maksymalnego segmentu: Dla tablicy A[1..n] znaleźć maksymalną wartość sumy elementów A[k] dla k = i…j, gdzie 1 ≤ i ≤ j ≤ n. (Czyli podciąg spójny o maksymalnej sumie).
+
+
+#Obsluga makefile:
+polecenie make by skompilowac wszystkie pliki zrodlowe
+make distance 
+make inversions
+make maxSquare
+make leader
+make maxLength
+make sumOfX
+make maxSegment 
+    by uruchomic poszczegolne pliki wykonywalne

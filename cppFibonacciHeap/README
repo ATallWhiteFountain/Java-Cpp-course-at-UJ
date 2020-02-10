@@ -1,0 +1,22 @@
+W pliku main.cpp znajduje sie implementacja kopca Fibonacciego.
+
+Makefile:
+-kompilacja: make
+-uruchomienie: make run
+-usuwanie pliku wynikowego: make clean
+
+#Autor zadania
+Andrzej Görlich
+agoerlich@netmail.if.uj.edu.pl
+http://th.if.uj.edu.pl/~atg/ASD
+
+#Tresc zadania
+Zaimplementować kopiec Fibonacciego z uwzględnieniem następujących operacji:
+
+    push - wstawia element do kopca
+    pop - usuwa i zwraca wartość najmniejszego elementu
+    top - zwraca wartość najmniejszego elementu
+    size - zwraca liczbę elementów na stosie
+    decrease-key - zmniejsza wartość elementu
+    remove - usuwa elementu
+

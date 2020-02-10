@@ -1,0 +1,92 @@
+# Autor zadan:
+Andrzej Görlich
+agoerlich@netmail.if.uj.edu.pl
+http://th.if.uj.edu.pl/~atg/Java
+
+# Klasa glowna:
+    Main.java
+
+# Tresc zadan:
+Zadanie 1. Porównanie wydajności kolekcji (obowiązkowe)
+
+Standardowa biblioteka Javy zawiera szeroki zestaw kolekcji, czyli klas, których obiekty przechowują grupę (referencji do) obiektów (elementów). Kolekcje możemy podzielić ze względu na implementowane interfejsy:
+
+    listy (java.util.List<E>)
+    kolejki (java.util.Queue<E>)
+    zbiory (java.util.Set<E>)
+    mapy (java.util.Map<K, V>)
+
+Pierwotnym interfejsem w hierarchii kolekcji jest java.util.Collection<E> (oprócz map). Proszę porównać wydajność (czas wykonywania) operacji: add(), remove(), contains(), dla klas ArrayList, HashSet, LinkedList, Stack, Vector, PriorityQueue i TreeSet z pakietu java.util. Przyjmując, że w każdej z kolekcji będą przechowywane zmienne typu int/Integer (32 bity), proszę oszacować średnią ilość pamięci potrzebną do przechowania jednego takiego elementu w kolekcji. Wynik proszę przesłać w formie tabelki tekstowej:
+
+klasa/test      add() [sek.]    remove [sek.]   contains() [sek.]   narzut pamięciowy [bajty]
+ArrayList       ??? +/- ???     ??? +/- ???     ??? +/- ???         ??? +/- ???
+...             ...             ...             ...                 ...
+
+gdzie ??? +/- ??? oznacza wartość średnia z pomiarów +/- odchylenie standardowe
+
+    Wskazówka: Do pomiaru czasu wykonania można wykorzystać mechanizmy Instant (od Java 8), System.currentTimeMillis() lub System.nanoTime().
+    Uwaga: Aby wyniki były wiarygodne czas wykonania zadań powinien wynosić przynajmniej kilka sekund. W tym celu należy w pętli wykonać operacje add(), następnie contains(), a na końcu remove(). Należy dopasować liczbę iteracji.
+
+Uwaga: Należy unikać używania przestarzałej klasy Vector, która w zamyśle miała zapewniać bezpieczeństwo wątków, jednak w rzeczywistości wada konstrukcyjna spowodowała, że nie robi tego poprawnie. Ponadto, użycie synchronizacji generuje dodatkowy narzut. W zamian należy użyć nowszej klasy ArrayList, która nie zapewnia, zbędnej w przypadku jedno-wątkowym, synchronizacji. Aby stworzyć listę synchronizowaną można użyć metody Collections.synchronizedList na obiekcie ArrayList.
+Zadanie 2. Kolejka priorytetowa (do wyboru)
+
+Proszę zaimplementować kolejkę priorytetową, czyli strukturę, przechowującą obiekty z uwzględnieniem ich priorytetu, w oparciu o kopiec i implementującą następujące operacje:
+
+    void add(T t) - wstawia nowy element do kolejki
+    T get() - zwraca i usuwa z kolejki element o najwyższym priorytecie. Jeśli w kolejce znajduje się kilka obiektów o najwyższym priorytecie, zwracany jest ten z nich, który został tam wstawiony najwcześniej.
+
+Napisać klasę Heap<E extends Comparable<? super E>>. Do porównania priorytetów wykorzystać porównanie obiektów.
+
+Złożoność czasowa operacji add() i get() powinna być możliwie najmniejsza. W rozwiązaniu nie wolno korzystać z klasy java.util.PriorityQueue.
+Zadanie 3. Drzewo wyszukiwań binarnych (do wyboru)
+
+Napisać klasę BinarySearchTree<E extends Comparable<? super E>> implementującą Collection<E> oraz klasę Node<E extends Comparable<? super E>>. Klasy te mają obsługiwać dynamiczną strukturę danych - binarne drzewo poszukiwań [Cormen, 2013]. W szczególności zdefiniować metody add (wstawianie elementu), toArray i iterator. Pozostałe metody z pustą definicją z interfejsu Collection powinny wyrzucać wyjątek UnsupportedOperationException. Elementy struktury danych mają być dodawane dynamicznie w taki sposób aby przechodzenie drzewa zwracało je w posortowanej kolejności. Ostatnia metoda ma zwracać obiekt klasy BinaryIterator<E extends Comparable<? super E>>, która implementuje interfejs Iterator<E>. Zaimplementować metody iteracyjne (na potrzeby iterator) i rekurencyjne (na potrzeby toArray) do przechodzenia drzewa (in-order).
+
+Zadanie:
+
+Napisać interfejs Pair<K, V>, który posiada metody K getKey() i V getValue(). Napisać klasę OrderedPair<K extends Comparable<? super K>, V> implementującą interfejsy Comparable <OrderedPair<K, V>> i Pair<K, V>. Zdefiniować konstruktor oraz metody compareTo, toString, getKey i getValue.
+
+Stworzyć obiekt list klasy BinarySearchTree i kilka obiektów klasy OrderedPair<String, String>. Sprawdzić działanie iteratora wypisując posortowane elementy przy użyciu pętli for(Object e : list).
+Zadanie 4. Circular (obowiązkowe)
+
+Napisać klasę Circular implementującą bufor cykliczny. Elementami bufora są obiekty klasy implementującej interfejs Serializable. Klasa ma być klasą generic i implementować interfejsy java.io.Serializable oraz java.util.concurrent.BlockingQueue<E>, zatem jej deklaracja powinna wyglądać w następujący sposób:
+
+public class Circular<E extends Serializable> 
+  implements Serializable, BlockingQueue<E>
+
+Klasa ma wykorzystywać implementacje tablicową bufora cyklicznego. W tym celu należy stworzyć pole prywatne E[] buf. Aby stworzyć tablicę typu zmiennego można użyć kodu
+
+    buf = (E[]) new Serializable[size];
+
+Proszę zapoznać się z tzw. problemem generic array creation. Ponieważ klasa implementuje interfejs BlockingQueue<E>, implementuje także Collection<E>, Iterable<E>, Queue<E>. Stworzyć konstruktor, który jako argument przyjmuje wielkość bufora. W szczególności należy zaimplementować metody add, offer, put oraz remove, poll, take (przez pogrubione metody można wyrazić pozostałe by nie powielać kodu). Proszę zapoznać się z ich działaniem w API powyższych interfejsów. Metody te powinny mieć modyfikator synchronized oraz wywoływać operacje notify() i wait() (dotyczy put i take) na this.
+
+Aby zapobiec wyciekowi pamięci, po usunięciu obiektu z bufora należy przypisać odpowiedniemu elementowi tablicy wartość null.
+
+Podczas serializacji/deserializacji bufora cyklicznego należy zapisać/odczytać jedynie używane, a nie wszystkie elementy buf. Dlatego należy zaimplementować własne metody writeObject(ObjectOutputStream) oraz readObject(ObjectInputStream).
+
+Proszę zaimplementować metodę public <T> T[] toArray(T[] a). Aby stworzyć (gdy jest to konieczne) nową tablicę typu T[], można użyć kodu
+
+java.lang.reflect.Array.newInstance(a.getClass().getComponentType(), len);
+
+Proszę zapoznać się z pakietem reflect.
+
+Proszę napisać metodę toString(). Dla każdego elementu tablicy buf należy wypisać indeks w tej tablicy, odległość od głowy bufora, typ obiektu i napis skojarzony z elementem, lub “Empty” gdy element tablicy nie przechowuje referencji do żadnego obiektu.
+
+Napisać programy, które
+
+    dodają elementy typu String do bufora i zapisują (serializują) go do pliku (z rozszerzeniem .ser)
+    wczytują bufor cykliczny z pliku (deserializują) i wypisują jego zawartość (toString)
+
+Zadanie 5. CircularIterator (obowiązkowe)
+
+Napisać klasę CircularIterator<E> realizującą interfejs java.util.Iterator<E>. Obiekt tej klasy ma być zwracany przez metodę iterator() bufora. Sprawdzić poprawność implementacji wykonując pętlę for-each na buforze:
+
+Circular<String> circular = new Circular<String>(16);
+// Dodać elementy do bufora
+for(String s : circular) {...}
+
+Opcjonalnie:
+
+    Uwaga wykonanie operacji remove() usuwa ostatnio zwrócony przez iterator element z bufora. Gdy dokonano modyfikacji bufora podczas użycia iteratora należy wyrzucić wyjątek ConcurrentModificationException.
+
+

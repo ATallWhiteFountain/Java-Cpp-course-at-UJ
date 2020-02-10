@@ -1,0 +1,53 @@
+# Autor zadan:
+Andrzej Görlich
+agoerlich@netmail.if.uj.edu.pl
+http://th.if.uj.edu.pl/~atg/Java
+
+# Klasa glowna:
+    Compute.java
+
+# Tresc zadan:
+Zadanie 1. Single Abstract Method (interfejs funkcyjny)
+
+Niech Computation<T> będzie generycznym interfejsem funkcyjnym, który deklaruje pojedynczą funkcję compute przyjmującą jako argument obiekt typu T i zwracającą obiekt tego samego typu:
+
+@FunctionalInterface
+public interface Computation<T> {
+    T compute(T);
+}
+
+Przykładowo klasa Computation<Double> oznacza interfejs reprezentujący zwykłą funkcję, która prowadzi ze zbioru liczb rzeczywistych w zbiór liczb rzeczywistych. Proszę zauważyć, że klasa Double jest klasą opakowującą dla typu prymitywnego double, a konwersja przebiega automatycznie.
+
+Stworzyć klasę Multiplier implementującą Computation<Double>, której metoda compute(double x) zwraca wartość a * x gdzie a jest parametrem typu double przekazanym do konstruktora.
+
+Zaimplementuj klasę Compute według następującego schematu:
+
+public class Compute {
+    public static void main(String[] args) { ... }
+    public static void plot(double xmin, double xmax, Computation<Double> f) { ... }
+    public static void apply(double[] array, Computation<Double> f) { ... }
+}
+
+    Metoda statyczna void plot(double xmin, double xmax, Computation<Double> f) przyjmuje instancję interfejsu funkcyjnego Computation<Double> i wypisuje dla n = 20 (np. final int n = 20;) wartości zmiennej x od xmin do xmax (włącznie) w równych odstępach współrzędną x oraz wartość zwracaną przez metodę compute dla argumentu x.
+    W jednej linii należy wypisać x i compute(x). Łącznie wypisać n linii.
+    Metoda statyczna void apply(double[] array, Computation<Double> f) ma wypełnić całą tablę array wartościami funkcji f(x), gdzie x to są kolejne oryginalne elementy tablicy array.
+    Metoda main ma wywołać metodę plot odpowiednio dla
+        Instancji klasy Multiplier, czyli klasy implementującej interfejs funkcyjny
+        Obiektu klasy anonimowej implementującej interfejs funkcyjny
+        Wyrażenia lambda
+        Referencji do metody statycznej
+        Referencja do metody niestatycznej
+    Powyższe funkcje mają być istotnie różne.
+    Ponadto metoda main ma utworzyć dwudziestoelementową tablicę typu double, wywołać na niej metodę apply z dowolną instancją interfejsu Computation<Double> a następnie wypisać samą tablicę.
+
+
+
+
+
+Zadanie 2. Exceptions (wyjątki)
+
+Zaimplementować klasę Divide i metodę statyczną public static double div(double a, double b), która zwraca wynik dzielenia a/b lub wyrzuca własny wyjątek klasy DivideByZeroException (poniżej) w przypadku próby wykonania dzielenia przez zero (gdy b = 0). Należy odpowiednio użyć słów kluczowych throws i throw. Zaimplementować funkcję main , która wypisuje wynik dzielenia. Argumenty są podane w linii komend. W przypadku wyrzucenia wyjątku nie przechwytywać go tylko wyrzucić dalej.
+
+Napisać wyjątek DivideByZeroException czyli klasę, która dziedziczy po java.lang.Exception. Napisać konstruktor DivideByZeroException(String a, String b), gdzie a i b to argumenty dzielenia. Konstruktor ma zapisać do zmiennej typu String komunikat o błędzie. Przeciążyć metodę getMessage, ma ona zwracać napis z komunikatem. Dodać adnotację @Override przed deklaracją metody, która informuje (nie jest niezbędna) kompilator, że chcemy ją przeciążyć.
+
+W którejś z instancji interfejsu funkcyjnego w poprzednim zadaniu wykonać operację dzielenia wykorzystując metodę statyczną Divide.div(). Doprowadzić do wyrzucenia wyjątku i go złapać. Dokonać potrzebnych modyfikacji.

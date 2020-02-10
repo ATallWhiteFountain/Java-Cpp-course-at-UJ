@@ -1,0 +1,131 @@
+Folder zawiera pliki zrodlowe generujace liczby pseudolosowe (5)
+oraz roznego rodzaju sortowania (9), zawiera takze pliki tekstowe magazynujace zbior liczb pseudolosowych(5).
+
+Kompilacja:
+make [nazwa]_[sortowania].x
+np. make bubble_sort.x
+
+Uruchamianie:
+make run[nazwa-skrot]
+np. make runBubble
+
+# Wykresy - plik Porownanie wydajnosci wybranych sortowan.ods
+
+#Autor zadania
+Andrzej Görlich
+agoerlich@netmail.if.uj.edu.pl
+http://th.if.uj.edu.pl/~atg/ASD
+
+#Tresc zadania
+Zadanie 1. Algorytmy sortowania
+
+Zaimplementować następujące algorytmy sortowania dla liczb całkowitych (typu int).
+Proste algorytmy sortowania
+
+Wybrać dwa z poniższych trzech algorytmów:
+
+    Sortowanie bąbelkowe (bubble sort) - (sugerowana nazwa pliku bubble_sort.cxx)
+    Sortowanie przez wstawianie (insertion sort) - (insertion_sort.cxx)
+    Sortowanie przez wybieranie (selection sort) - ( selection_sort.cxx)
+        Wersja alternatywna: sortowanie przez wybieranie minmax (selection_minmax.cxx)
+        Zmodyfikować implementację algorytmu sortowania przez wybieranie tak aby jednocześnie wybierać minimum i maksimum.
+
+Ciekawe algorytmy sortowania
+
+Zaimplementować oba algorytmy:
+
+    Sortowanie przez zliczanie (counting sort) - (counting_sort.cxx)
+    Sortowanie pozycyjne (radix sort - (radix_sort.cxx) Algorytm sortowania pozycyjnego dla n elementowej tablicy przy użyciu (tablicy) dziesięciu kolejek. Należy użyć własnej implementacji kolejki. Tablica przechowuje liczby naturalne dodatnie mniejsze od 10k reprezentowane jako tablica k cyfr dziesiętnych.
+
+Szybkie algorytmy sortowania
+
+Dwa z poniższych trzech algorytmów należy zaimplementować w wersji iteracyjnej, a jeden w wersji rekurencyjnej:
+
+    Sortowanie kopcowe i kopiec
+
+    Kopiec binarny (ang. binary heap) to drzewo binarne, którego wszystkie poziomy z wyjątkiem ostatniego są pełne, a ostatni poziom jest zapełniony od lewej strony. W kopcu typu max rodzic jest zawsze większy (lub równy) od dzieci. W korzeniu drzewa znajduje się największy element.
+
+Napisać klasę Heap, która jest tablicową implementacją kopca binarnego typu max.
+
+    Dla indeksowania od 0 do n - 1: wierzchołek o indeksie i ma rodzica o indeksie (int) (i - 1) / 2 i dzieci o indeksach 2 * i + 1 i 2 * i + 2.
+    Dla indeksowania od 1 do n: wierzchołek o indeksie i ma rodzica o indeksie (int) i / 2 i dzieci o indeksach 2 * i i 2 * i + 1 (sugerowana).
+
+class Heap {
+private:
+    void heapify(int);          // Wersja iteracyjna lub rekurencyjna
+public:
+    void build(int[], int);
+    void push(int x);           // Wstawia element do kopca
+    int pop();                  // Usuwa element z kopca
+    int& top();                 // Zwraca referncję do ostatniego elementu
+    int size();                 // Zwraca liczbę elementów w kopcu
+    bool empty();               // Sprawdza czy kopiec jest pusty
+    bool check();               // Sprawdza czy właściwość kopca jest zachowana
+    void sortRec(int[], int);
+    void sortIter(int[], int);
+};
+
+Metod heapify(int i) umieszcza wartość korzenia i w odpowiednim miejscu zakładając, że jego dzieci są korzeniami prawidłowych kopców. Napisać wersje rekruencyjną albo iteracyjną. Metoda build(int a[], int n) kopiuje zawartość tablicy a o rozmiarze n do wewnętrznej tablicy kopca, a następnie naprawia jego strukturę wykorzystując metodę heapify(). Napisać metodę sort(int arr[], int size), która sortuje tablicę arr typu int o rozmiarze size wykorzystując metodę heapify w wersji iteracyjnej albo rekurencyjnej.
+
+    Wskazówka: Budowanie kopca najlepiej zacząć od połowy w kierunku początku tablicy (wywołująć metodę heapify()).
+    Wskazówka: Zamienić ostatni nieposortowany element z korzeniem (czyli maksimum), a następnie naprawić kopiec. Postępować tak aż do posortowania całej tablicy.
+
+Więcej informacji na temat sortowanie kopcowego można znaleźć w (Heap sort).
+
+    Sortowanie przez scalanie (Merge sort)
+        Użyć scalania bitonicznego
+    Quick sort (Quick sort, Quick-sort po węgiersku)
+
+Standardowe funkcje sortujące - C vs C++
+
+Napisać programy, które używają do sortowania tablicy typu int:
+
+    funkcji qsort ze standardowej biblioteki C (użyć kompilatora gcc) - (sort.c)
+    funkcji std::sort ze standardowej biblioteki C++ (użyć kompilatora g++) - (std_sort.cxx)
+
+W obu przypadkach użyć do kompilacji flag -O3 -march=native. Porównać czas kompilacji.
+
+Uwaga: Programy powinny wczytywać dane wejściowe ze standardowego wejścia i zapisywać dane wyjściowe na standardowe wyjście. Nie odczytywać/zapisywać z/do pliku.
+
+    Format danych wejściowych i wyjściowych: w każdej linii znajduje się jedna liczba w postaci tekstowej
+
+Zadanie 2. Złożoność obliczeniowa
+Generowanie danych
+
+Napisać programy do generowania danych wejściowych:
+
+    genRandom.cxx - generuje losowe dane wejściowe, przyjmuje dwa argumenty - n i max - i wypisuje n liczb losowych z zakresu od 1 do max włącznie.
+    genSorted.cxx - generuje ciąg rosnący
+    genReverse.cxx - generuje ciąg malejący
+    genSortedFirst.cxx - generuje ciąg rosnący z losowym elementem na początku
+    genSortedLast.cxx - generuje ciąg rosnący z losowym elementem na końcu
+
+Programy przyjmują liczbę elementów ciągu jako argument.
+Sprawdzenie poprawności
+
+Sprawdzić poprawność wszystkich zaimplementowanych algorytmów sortowania. Używając programu diff -s porównać własne wyniki z wynikiem komendy sort -n. Przykład:
+
+./genRandom.x 10000 100000 > input_10k.txt
+time ./bubble_sort.x < input_10k.txt > output_bubble.txt
+time sort -n < input_10k.txt > output_sort.txt
+diff -s output_bubble.txt output_sort.txt
+
+Komenda time mierzy czas działania programów. Pliki wynikowe powinny być identyczne.
+Złożoność obliczeniowa
+
+    Wyznaczyć liczbę porównań wykonanych przez każdy z algorytmów w przypadku pesymistycznym i optymistycznym w funkcji rozmiaru danych wejściowych n.
+    Oszacować średnią liczbę porównań wykonanych przez każdy z algorytmów w przypadku losowym.
+    Jaka jest złożoność obliczeniowa algorytmów:
+        optymistyczna
+        typowa
+        pesymistyczna
+
+Dla powyższych pięciu typów zbiorów i każdej liczności zbioru zmierzyć liczbę operacji wykonanych podczas sortowania dla każdego z algorytmów. Wyniki przedstawić w formie tabeli.
+
+    Odpowiedzi należy umieścić w pliku README
+
+Czas sortowania
+
+Zmierzyć czas sortowania (dla wszystkich zaimplementowanych metod) dla n = 10000, 20000, 40000, 80000, 160000. W tym celu należy wyłączyć wypisywanie posortowanego ciągu i użyć funkcji std::chrono::high_resolution_clock (patrz wskazówki) oraz komendy time. Zrobić wykres (np. używając programów gnuplot, gnumeric, LibreOffice) przedstawiający czas sortowania w funkcji rozmiaru danych i dopasować teoretyczny czas wykonania. Wytłumaczyć różnice.
+
+Uwaga: Dane należy wczytywać ze standardowego wejścia std::cin.
