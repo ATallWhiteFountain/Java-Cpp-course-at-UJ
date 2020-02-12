@@ -1,0 +1,29 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.TextField?>
+
+<GridPane fx:controller="mandelbrot.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" stylesheets="/mandelbrot/main.css">
+    <Canvas fx:id="canvas" GridPane.columnIndex="0" GridPane.rowSpan="10" width="512" height="512"
+            onMouseDragged="#mouseMoves" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased"/>
+    <Button GridPane.columnIndex="1" GridPane.rowIndex="0" text="Clear" onAction="#clearCanvas" minWidth="100"/>
+    <Button GridPane.columnIndex="1" GridPane.rowIndex="1" text="Draw Fractal" onAction="#draw" minWidth="100"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" promptText="Enter r parameter" fx:id="textParameter" maxWidth="100"
+               maxHeight="60" onAction="#setParameter"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="Enter aX" fx:id="textComplexAx" maxWidth="100"
+               maxHeight="60" onAction="#setAx"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" promptText="Enter bX" fx:id="textComplexBx" maxWidth="100"
+               maxHeight="60" onAction="#setBx"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" promptText="Enter aY" fx:id="textComplexAy" maxWidth="100"
+               maxHeight="60" onAction="#setAy"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" promptText="Enter bY" fx:id="textComplexBy" maxWidth="100"
+               maxHeight="60" onAction="#setBy"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" promptText="Enter width" fx:id="textWidth" maxWidth="100"
+               maxHeight="60" onAction="#setWidth"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" promptText="Enter height" fx:id="textHeight" maxWidth="100"
+               maxHeight="60" onAction="#setHeight"/>
+</GridPane>

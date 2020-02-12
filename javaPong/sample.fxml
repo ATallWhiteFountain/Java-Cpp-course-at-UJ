@@ -1,0 +1,7 @@
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.GridPane?>
+<GridPane fx:controller="watki.Pong"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" stylesheets="/watki/main.css"
+          >
+    <Canvas fx:id="canvas" GridPane.columnIndex="0" GridPane.rowSpan="10" width="1024" height="680"/>
+</GridPane>
